@@ -1,0 +1,30 @@
+#include "arraylist.h"
+
+typedef int the_type;
+
+const Boolean compare_function(const Object a, const Object b) 
+{
+    return *(the_type*)a == *(the_type*)b;
+}
+
+int main(void) 
+{
+    Arraylist the_list;
+    int x = 42, y = 23, z = 3, i;
+
+    the_list = arraylist_create(compare_function);
+
+    arraylist_add(the_list, &x);
+    arraylist_add(the_list, &y);
+    arraylist_add(the_list, &z);
+
+    for (i = 0; i < arraylist_size(the_list); ++i) {
+        /* the printf works just because the_type == int */
+        printf("%i: %i\n", i, *(the_type*)arraylist_get(the_list, i));
+    }
+
+    arraylist_clear(the_list);
+    arraylist_free(the_list);
+
+    return 0;
+}
